@@ -11,16 +11,17 @@ function App() {
   );
   const [activeLetter, setActiveLetter] = useState("a");
   const [activeRecipe, setActiveRecipe] = useState("");
-  
+  const recipes = []
 
   // return recipes from API using axios
   useEffect(() => {
     axios
       .get(currentPageURL)
       .then((res) => {
+        recipes.push(res.data.meals);
         setRecipe(
           res.data.meals.map((r) => (
-            <div onClick={setActiveRecipe}>
+            <div onClick={() => handleRecipeClick(r)}>
               <img
                 className="self-center"
                 height="200"
@@ -32,12 +33,13 @@ function App() {
             </div>
           ))
         );
-      }).catch((error) => {
-        alert("No recipes exist for this letter. Please try another letter.")
       })
-  }, [currentPageURL]);
+      .catch((error) => {
+      });
+  }, [currentPageURL, activeRecipe]);
 
-  
+
+
   function setLetter(letter) {
     setCurrentPageURL(
       `https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`
@@ -46,9 +48,17 @@ function App() {
     window.scrollTo(0, 0);
   }
 
+  const [showTags, setShowTags] = useState(false);
+
+  function handleRecipeClick(r) {
+    console.log(r.strMeal)
+    setActiveRecipe(r.strMeal)
+    setShowTags(!showTags);
+  }
+
   return (
     <div className="">
-      <RecipeList recipe={recipe} />
+      <RecipeList recipe={recipe} activeRecipe={activeRecipe} handleRecipeClick={handleRecipeClick}/>
       <Footer setLetter={setLetter} activeLetter={activeLetter} />
     </div>
   );
