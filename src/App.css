@@ -6,3 +6,11 @@
   height: 40vmin;
   pointer-events: none;
 }
+
+.expanded {
+  background-color: red;
+}
+
+.active {
+  display: none;
+}
