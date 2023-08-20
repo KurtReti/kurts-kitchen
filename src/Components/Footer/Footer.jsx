@@ -16,7 +16,7 @@ export default function Footer({ setLetter, activeLetter }) {
   }
 
   return (
-    <div className="w-full h-12 sticky bottom-0 bg-red-500 flex flex-row justify-around">
+    <div className="w-full h-12 sticky z-70 text-white top-0 bg-slate-500 flex flex-row justify-around">
       {buttons}
     </div>
   );
