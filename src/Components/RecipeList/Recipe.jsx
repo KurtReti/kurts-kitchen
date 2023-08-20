@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from "react";
 
-
 function Recipe(props) {
   const [isExpanded, setIsExpanded] = useState(false);
   const recipe = props.recipe;
 
-  if (recipe.strSource && recipe.strSource !== "") {
-    const source = new URL(recipe.strSource);
-    console.log("From " + source.hostname);
-  }
+  const tags = recipe.strTags;
+  const newTags = tags?.replace(/,/g, ", ");
 
   const toggleExpand = () => {
     setIsExpanded(true);
-    document.body.classList.add('stop-scroll')
+    document.body.classList.add("stop-scroll");
   };
 
   const unToggleExpand = () => {
     setIsExpanded(false);
-    document.body.classList.remove('stop-scroll')
-
+    document.body.classList.remove("stop-scroll");
   };
 
   useEffect(() => {}, [isExpanded]);
@@ -40,25 +36,19 @@ function Recipe(props) {
 
   return (
     <>
+      {/* // Recipe Card */}
       <div
         className={
           isExpanded
-            ? "w-screen h-screen fixed opacity-100 z-10 bg-white transition-opacity"
-            : "hidden"
-        }
-        onClick={unToggleExpand}
-      />
-      <div
-        className={
-          isExpanded
-            ? "fixed top-0 z-20 bg-white text-slate-900 px-2 py-2 w-screen h-screen overflow-auto flex flex-col justify-center items-center text-center"
-            : "bg-white w-5/6 border border-black rounded-md text-slate-900  px-2 py-2 flex flex-col justify-center items-center text-center"
+            ? "fixed top-0 z-20 bg-white text-slate-900 px-2 py-8 h-screen w-screen overflow-scroll flex flex-col justify-center items-center text-left gap-8"
+            : "bg-white w-1/4 my-8 rounded-md text-slate-900 px-2 py-2 flex flex-col justify-top  items-left text-left"
         }
         onClick={() => {
           if (isExpanded) return;
           toggleExpand();
         }}
       >
+        {/* // Close Button */}
         <button
           className={
             isExpanded
@@ -69,40 +59,85 @@ function Recipe(props) {
         >
           X
         </button>
-        <h1 className="py-2 font-semibold">{recipe.strMeal}</h1>
-        <img
-          className="opacity-100"
-          width="200"
-          height="200"
-          src={recipe.strMealThumb}
-          alt={recipe.strMeal}
-        />
-        <h3 className={isExpanded ? "block font-semibold pt-4" : "hidden"}>
-          Ingredients
-        </h3>
-        <ul className=" list-disc flex flex-wrap w-2/3 gap-8 justify-center">
-          {ingredients}
-        </ul>
-        <h3 className={isExpanded ? "block font-semibold pt-4" : "hidden"}>
-          Instructions
-        </h3>
-        <p
+
+        {/* Left Side Container */}
+        <div
           className={
-            isExpanded ? "whitespace-pre-wrap block px-8 text-justify leading-8" : "hidden"
+            isExpanded
+              ? "flex flex-row bg-slate-100 justify-center items-center w-full"
+              : "flex flex-col"
           }
         >
-          {recipe.strInstructions}
-        </p>
-        <a
+          <img
+            className={isExpanded ? "rounded-lg w-1/3 h-1/2 object-cover" : "rounded-lg"}
+            width="500"
+            height="500"
+            src={recipe.strMealThumb}
+            alt={recipe.strMeal}
+          />
+
+          {/* // Title */}
+          <div>
+            <h1
+              className={
+                isExpanded
+                  ? "pt-2 bg-slate-100  font-medium text-5xl mx-12 font-serif w-fit"
+                  : "pt-2 font-bold text-2xl font-serif w-5/6"
+              }
+            >
+              {recipe.strMeal}
+            </h1>
+          </div>
+        </div>
+        {/* // Thumbnail */}
+
+        {/* // Tags */}
+        <h2
           className={
-            isExpanded && recipe.strSource
-              ? "hover:underline hover:cursor-pointer opacity-50"
-              : "hidden"
+            isExpanded
+              ? "hidden"
+              : "text-md font-medium opacity-60 font-sans-serif"
           }
-          href={recipe.strSource}
         >
-          View source
-        </a>
+          {newTags}
+        </h2>
+
+        <div className="flex flex-col w-2/3">
+          {/* // Ingredients */}
+          <h3 className={isExpanded ? "block font-semibold pt-4" : "hidden"}>
+            Ingredients
+          </h3>
+          <ul className="grid grid-cols-2 list-disc flex flex-wrap w-2/3 gap-4 justify-center">
+            {ingredients}
+          </ul>
+
+          {/* // Instructions */}
+          <h3 className={isExpanded ? "block font-semibold pt-4" : "hidden"}>
+            Instructions
+          </h3>
+          <p
+            className={
+              isExpanded
+                ? "whitespace-pre-wrap block px-8 text-justify leading-8"
+                : "hidden"
+            }
+          >
+            {recipe.strInstructions}
+          </p>
+
+          {/* // View Source */}
+          <a
+            className={
+              isExpanded && recipe.strSource
+                ? "hover:underline hover:cursor-pointer opacity-50"
+                : "hidden"
+            }
+            href={recipe.strSource}
+          >
+            View source
+          </a>
+        </div>
+
         {}
       </div>
     </>

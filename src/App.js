@@ -12,21 +12,20 @@ function App() {
   );
   const [activeLetter, setActiveLetter] = useState("a");
 
-  // return recipes from API using axios
+  // return recipes from API using axios, generate recipe components
   useEffect(() => {
     axios
       .get(currentPageURL)
       .then((res) => {
-        recipes.push(res.data.meals);
         setRecipe(
           res.data.meals.map((r) => (
-              <Recipe recipe = {r} recipeThumb = {r.strMealThumb} recipeName={r.strMeal} />
+              <Recipe key={r} recipe = {r} />
           ))
         );
       })
       .catch((error) => {
       });
-  }, [currentPageURL, activeRecipe]);
+  }, [currentPageURL]);
 
 
 
@@ -42,14 +41,14 @@ function App() {
 
   function handleRecipeClick(r) {
     console.log(r.strMeal)
-    setActiveRecipe(r.strMeal)
     setShowTags(!showTags);
   }
 
   return (
-    <div className="bg-white">
-      <RecipeList recipe={recipe} />
+    <div className="bg-black">
       <Footer setLetter={setLetter} activeLetter={activeLetter} />
+
+      <RecipeList recipe={recipe} />
     </div>
   );
 }
