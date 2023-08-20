@@ -37,7 +37,7 @@ function App() {
   }
 
   return (
-    <div className="bg-slate-800">
+    <div className="bg-white">
       <RecipeList recipe={recipe} />
       <Footer setLetter={setLetter} activeLetter={activeLetter} />
     </div>

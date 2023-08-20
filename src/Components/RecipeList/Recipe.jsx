@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+
 function Recipe(props) {
   const [isExpanded, setIsExpanded] = useState(false);
   const recipe = props.recipe;
@@ -11,10 +12,13 @@ function Recipe(props) {
 
   const toggleExpand = () => {
     setIsExpanded(true);
+    document.body.classList.add('stop-scroll')
   };
 
   const unToggleExpand = () => {
     setIsExpanded(false);
+    document.body.classList.remove('stop-scroll')
+
   };
 
   useEffect(() => {}, [isExpanded]);
@@ -39,7 +43,7 @@ function Recipe(props) {
       <div
         className={
           isExpanded
-            ? "w-screen mt-[-35px] h-screen fixed opacity-90 z-10 bg-slate-900 transition-opacity"
+            ? "w-screen h-screen fixed opacity-100 z-10 bg-white transition-opacity"
             : "hidden"
         }
         onClick={unToggleExpand}
@@ -47,8 +51,8 @@ function Recipe(props) {
       <div
         className={
           isExpanded
-            ? "fixed place-center z-10 bg-slate-900 border border-white rounded-md text-white shadow-md shadow-black px-2 py-2 w-3/4 h-5/6 overflow-auto flex flex-col justify-center items-center text-center"
-            : "bg-slate-900 border border-white rounded-md text-white shadow-md shadow-black px-2 py-2 w-56 flex flex-col justify-center items-center text-center"
+            ? "fixed top-0 z-20 bg-white text-slate-900 px-2 py-2 w-screen h-screen overflow-auto flex flex-col justify-center items-center text-center"
+            : "bg-white w-5/6 border border-black rounded-md text-slate-900  px-2 py-2 flex flex-col justify-center items-center text-center"
         }
         onClick={() => {
           if (isExpanded) return;
