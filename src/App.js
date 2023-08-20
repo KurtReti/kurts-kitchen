@@ -3,6 +3,7 @@ import RecipeList from "./Components/RecipeList/RecipeList";
 import Footer from "./Components/Footer/Footer";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Recipe from "./Components/RecipeList/Recipe";
 
 function App() {
   const [recipe, setRecipe] = useState([]);
@@ -10,8 +11,6 @@ function App() {
     "https://www.themealdb.com/api/json/v1/1/search.php?f=a"
   );
   const [activeLetter, setActiveLetter] = useState("a");
-  const [activeRecipe, setActiveRecipe] = useState("");
-  
 
   // return recipes from API using axios
   useEffect(() => {
@@ -20,24 +19,15 @@ function App() {
       .then((res) => {
         setRecipe(
           res.data.meals.map((r) => (
-            <div onClick={setActiveRecipe}>
-              <img
-                className="self-center"
-                height="200"
-                width="200"
-                src={r.strMealThumb}
-                alt={r.strMeal}
-              />
-              <div>{r.strMeal}</div>
-            </div>
+              <Recipe recipe = {r} recipeThumb = {r.strMealThumb} recipeName={r.strMeal} />
           ))
         );
-      }).catch((error) => {
-        alert("No recipes exist for this letter. Please try another letter.")
       })
+      .catch((error) => {
+        alert("No recipes exist for this letter. Please try another letter.");
+      });
   }, [currentPageURL]);
 
-  
   function setLetter(letter) {
     setCurrentPageURL(
       `https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`
@@ -47,7 +37,7 @@ function App() {
   }
 
   return (
-    <div className="">
+    <div className="bg-slate-800">
       <RecipeList recipe={recipe} />
       <Footer setLetter={setLetter} activeLetter={activeLetter} />
     </div>
