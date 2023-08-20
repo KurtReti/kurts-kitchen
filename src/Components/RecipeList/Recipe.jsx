@@ -69,7 +69,10 @@ function Recipe(props) {
           }
         >
           <img
-            className={isExpanded ? "rounded-lg w-1/3 h-1/2 object-cover" : "rounded-lg"}
+            className={
+              isExpanded ? "rounded-lg w-1/3 h-1/2 object-cover" : "rounded-lg"
+            }
+            loading="lazy"
             width="500"
             height="500"
             src={recipe.strMealThumb}
