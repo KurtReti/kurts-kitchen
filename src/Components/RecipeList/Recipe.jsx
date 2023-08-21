@@ -17,7 +17,13 @@ function Recipe(props) {
     document.body.classList.remove("stop-scroll");
   };
 
-  useEffect(() => {}, [isExpanded]);
+  useEffect(() => {
+    if (isExpanded) {
+      document.body.classList.add("stop-scroll");
+    } else {
+      document.body.classList.remove("stop-scroll");
+    }
+  }, [isExpanded]);
 
   const ingredients = [];
 
@@ -41,7 +47,7 @@ function Recipe(props) {
         className={
           isExpanded
             ? "fixed top-0 z-20 bg-white text-slate-900 px-2 py-8 h-screen w-screen overflow-scroll flex flex-col justify-center items-center text-left gap-8"
-            : "bg-white w-1/4 my-8 rounded-md text-slate-900 px-2 py-2 flex flex-col justify-top  items-left text-left"
+            : "bg-white w-96 my-8 rounded-md text-slate-900 px-2 py-2 flex flex-col justify-top  items-left text-left hover:cursor-pointer hover:scale-110 transition-transform ease-in-out duration-300"
         }
         onClick={() => {
           if (isExpanded) return;
@@ -70,7 +76,7 @@ function Recipe(props) {
         >
           <img
             className={
-              isExpanded ? "rounded-lg w-1/3 h-1/2 object-cover" : "rounded-lg"
+              isExpanded ? "rounded-lg w-1/3 h-1/2 object-cover " : "rounded-lg"
             }
             loading="lazy"
             width="500"
@@ -99,7 +105,7 @@ function Recipe(props) {
           className={
             isExpanded
               ? "hidden"
-              : "text-md font-medium opacity-60 font-sans-serif"
+              : "text-md font-medium opacity-20 font-sans-serif"
           }
         >
           {newTags}
@@ -121,7 +127,7 @@ function Recipe(props) {
           <p
             className={
               isExpanded
-                ? "whitespace-pre-wrap block px-8 text-justify leading-8"
+                ? "whitespace-pre-wrap block text-justify leading-8"
                 : "hidden"
             }
           >

@@ -4,12 +4,14 @@ import Footer from "./Components/Footer/Footer";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Recipe from "./Components/RecipeList/Recipe";
+import Home from "./Components/Home/Home";
+import Country from "./Components/Home/Country";
+import uuid from "react-uuid";
 
 function App() {
   const [recipe, setRecipe] = useState([]);
-  const [currentPageURL, setCurrentPageURL] = useState(
-    "https://www.themealdb.com/api/json/v1/1/search.php?f=a"
-  );
+  const [country, setCountry] = useState([]);
+  const [currentPageURL, setCurrentPageURL] = useState("");
   const [activeLetter, setActiveLetter] = useState("a");
 
   // return recipes from API using axios, generate recipe components
@@ -17,17 +19,10 @@ function App() {
     axios
       .get(currentPageURL)
       .then((res) => {
-        setRecipe(
-          res.data.meals.map((r) => (
-              <Recipe key={r} recipe = {r} />
-          ))
-        );
+        setRecipe(res.data.meals.map((r) => <Recipe key={r} recipe={r} />));
       })
-      .catch((error) => {
-      });
+      .catch((error) => {});
   }, [currentPageURL]);
-
-
 
   function setLetter(letter) {
     setCurrentPageURL(
@@ -37,18 +32,37 @@ function App() {
     window.scrollTo(0, 0);
   }
 
+  function setHome() {
+    setCurrentPageURL("");
+    axios
+      .get("https://www.themealdb.com/api/json/v1/1/list.php?c=list")
+      .then((res) => {
+        setCountry(
+          res.data.meals.map((c) => <Country key={uuid} country={c} />)
+        );
+      });
+  }
+
   const [showTags, setShowTags] = useState(false);
 
   function handleRecipeClick(r) {
-    console.log(r.strMeal)
+    console.log(r.strMeal);
     setShowTags(!showTags);
   }
 
   return (
-    <div className="bg-black">
-      <Footer setLetter={setLetter} activeLetter={activeLetter} />
-
-      <RecipeList recipe={recipe} />
+    <div>
+      <Footer
+        setHome={setHome}
+        setLetter={setLetter}
+        activeLetter={activeLetter}
+      />
+      <div className={currentPageURL === "" ? "block" : "hidden"}>
+        <Home country={country} />
+      </div>
+      <div className={currentPageURL !== "" ? "block" : "hidden"}>
+        <RecipeList recipe={recipe} />
+      </div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-export default function Footer({ setLetter, activeLetter }) {
+export default function Footer({ setLetter, activeLetter, setHome }) {
   const buttons = [];
   for (let i = 0; i < 26; i++) {
     let newChar = String.fromCharCode(65 + i);
@@ -14,8 +14,9 @@ export default function Footer({ setLetter, activeLetter }) {
   }
 
   return (
-    <div className="w-full h-12 sticky top-0 z-70 text-white bg-black flex flex-row justify-around">
+    <div className="w-full h-12 sticky top-0 z-50 text-white bg-black flex flex-row justify-around">
       {buttons}
+      <button onClick={setHome}>Home</button>
     </div>
   );
 }
