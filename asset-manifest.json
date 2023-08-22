@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/kurts-kitchen/static/css/main.b1599c70.css",
+    "main.js": "/kurts-kitchen/static/js/main.74db27a8.js",
+    "index.html": "/kurts-kitchen/index.html",
+    "main.b1599c70.css.map": "/kurts-kitchen/static/css/main.b1599c70.css.map",
+    "main.74db27a8.js.map": "/kurts-kitchen/static/js/main.74db27a8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b1599c70.css",
+    "static/js/main.74db27a8.js"
+  ]
+}
