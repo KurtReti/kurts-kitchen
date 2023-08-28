@@ -46,7 +46,7 @@ function Recipe(props) {
       <div
         className={
           isExpanded
-            ? "fixed top-0 z-20 bg-white text-slate-900 px-2 py-8 h-screen w-screen overflow-scroll flex flex-col justify-center items-center text-left gap-8"
+            ? "fixed top-0 z-20 bg-white text-slate-900 px-2 py-8 h-screen w-screen overflow-scroll flex flex-col items-center text-left gap-8"
             : "bg-white w-96 my-8 rounded-md text-slate-900 px-2 py-2 flex flex-col justify-top  items-left text-left hover:cursor-pointer hover:scale-110 transition-transform ease-in-out duration-300"
         }
         onClick={() => {
@@ -54,11 +54,12 @@ function Recipe(props) {
           toggleExpand();
         }}
       >
+        {/* Top */}
         {/* // Close Button */}
         <button
           className={
             isExpanded
-              ? "absolute top-0 right-0 mt-8 mr-8 border rounded-md border-white bg-white h-6 w-6 flex items-center justify-center text-black"
+              ? "absolute top-10 z-50 right-0 mt-8 mr-8 border rounded-full border-white bg-white h-6 w-6 flex items-center justify-center text-black"
               : "hidden"
           }
           onClick={unToggleExpand}
@@ -66,57 +67,59 @@ function Recipe(props) {
           X
         </button>
 
-        {/* Left Side Container */}
         <div
           className={
             isExpanded
-              ? "flex flex-row bg-slate-100 justify-center items-center w-full"
+              ? " flex flex-row bg-slate-100 justify-center items-center w-full"
               : "flex flex-col"
           }
         >
-          <img
-            className={
-              isExpanded ? "rounded-lg w-1/3 h-1/2 object-cover " : "rounded-lg"
-            }
-            loading="lazy"
-            width="500"
-            height="500"
-            src={recipe.strMealThumb}
-            alt={recipe.strMeal}
-          />
+          <div className={isExpanded ? "pb-24 mr-24 relative w-1/2 h-1/2" : ""}>
+            {/* // Thumbnail */}
 
-          {/* // Title */}
-          <div>
+            <img
+              className={
+                isExpanded
+                  ? ` w-[700px] h-[200px] max-w-none object-cover `
+                  : "h-[300px] w-[300px] max-w-none rounded-lg"
+              }
+              loading="lazy"
+              width="300"
+              height="300"
+              src={recipe.strMealThumb}
+              alt={recipe.strMeal}
+            />
+
+            {/* // Title */}
             <h1
               className={
                 isExpanded
-                  ? "pt-2 bg-slate-100  font-medium text-5xl mx-12 font-serif w-fit"
+                  ? "shadow-md absolute -top-10 -right-40 bg-white p-4  font-medium text-5xl font-serif w-96"
                   : "pt-2 font-bold text-2xl font-serif w-5/6"
               }
             >
               {recipe.strMeal}
             </h1>
+
+            {/* // Tags */}
+            <h2
+              className={
+                isExpanded
+                  ? "hidden"
+                  : "text-md font-medium opacity-20 font-sans-serif"
+              }
+            >
+              {newTags}
+            </h2>
           </div>
         </div>
-        {/* // Thumbnail */}
-
-        {/* // Tags */}
-        <h2
-          className={
-            isExpanded
-              ? "hidden"
-              : "text-md font-medium opacity-20 font-sans-serif"
-          }
-        >
-          {newTags}
-        </h2>
 
         <div className="flex flex-col w-2/3">
           {/* // Ingredients */}
           <h3 className={isExpanded ? "block font-semibold pt-4" : "hidden"}>
             Ingredients
           </h3>
-          <ul className="grid grid-cols-2 list-disc flex flex-wrap w-2/3 gap-4 justify-center">
+          <ul className="pl-6 py-2 grid grid-cols-2 list-disc w-2/3 gap-4 justify-center">
             {ingredients}
           </ul>
 

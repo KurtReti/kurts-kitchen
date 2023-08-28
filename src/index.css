@@ -19,3 +19,8 @@ code {
 .stop-scroll{
   overflow: hidden;
 }
+
+.custom-thumb-sizing{
+  width: 300px;
+  height: 300px;
+}
