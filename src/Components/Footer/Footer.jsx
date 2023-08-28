@@ -14,9 +14,8 @@ export default function Footer({ setLetter, activeLetter, setHome }) {
   }
 
   return (
-    <div className="w-full h-12 sticky top-0 z-50 text-white bg-black flex flex-row justify-around">
+    <div className="w-full h-36 md:gap-0 gap-4 md:h-12 sticky top-0 z-50 text-white bg-black flex flex-row flex-wrap justify-around ">
       {buttons}
-      <button onClick={setHome}>Home</button>
     </div>
   );
 }
