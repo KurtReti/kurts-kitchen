@@ -19,7 +19,12 @@ function App() {
     axios
       .get(currentPageURL)
       .then((res) => {
+        if(res.data.meals !== null) {
         setRecipe(res.data.meals.map((r) => <Recipe key={r} recipe={r} />));
+        }
+        else {
+          alert("No recipes found for this letter, please pick another letter and try again.")
+        }
       })
       .catch((error) => {});
   }, [currentPageURL]);
