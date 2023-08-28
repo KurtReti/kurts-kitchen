@@ -46,7 +46,7 @@ function Recipe(props) {
       <div
         className={
           isExpanded
-            ? "fixed top-0 z-20 bg-white text-slate-900 px-2 py-8 h-screen w-screen overflow-scroll flex flex-col items-center text-left gap-8"
+            ? "fixed top-0 z-50 bg-white text-slate-900 h-screen w-screen overflow-scroll flex flex-col items-center text-left gap-8"
             : "bg-white w-96 my-8 rounded-md text-slate-900 px-2 py-2 flex flex-col justify-top  items-left text-left hover:cursor-pointer hover:scale-110 transition-transform ease-in-out duration-300"
         }
         onClick={() => {
@@ -74,7 +74,7 @@ function Recipe(props) {
               : "flex flex-col"
           }
         >
-          <div className={isExpanded ? "pb-24 mr-24 relative w-1/2 h-1/2" : ""}>
+          <div className={isExpanded ? "pb-36 mr-24 relative w-1/2 h-1/2" : ""}>
             {/* // Thumbnail */}
 
             <img
@@ -114,7 +114,7 @@ function Recipe(props) {
           </div>
         </div>
 
-        <div className="flex flex-col w-2/3">
+        <div className="flex flex-col gap-4 w-2/3 pb-12">
           {/* // Ingredients */}
           <h3 className={isExpanded ? "block font-semibold pt-4" : "hidden"}>
             Ingredients
